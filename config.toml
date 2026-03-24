@@ -6,8 +6,8 @@ jwt_expire_hours = 24.0
 rate_limit_per_minute = 60
 
 [ai]
-api_url = "https://api.deepseek.com/v1/chat/completions"
-api_key = "sk-48d185e1ce89487484f35503320130de"
+api_url = 
+api_key = 
 model = "deepseek-chat"
 timeout = 30
 
