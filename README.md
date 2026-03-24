@@ -1,0 +1,2 @@
+# BlackPurpleSoker
+Rust＋Python前端＋后端Aritix框架调用DeepSeekAPI端口工具，后续会逐步迭代优化为企业级架构，这个是雏形
