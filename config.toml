@@ -1,0 +1,15 @@
+[server]
+host = "0.0.0.0"
+port = 8080
+jwt_secret = "your_very_secure_secret_key_123456"
+jwt_expire_hours = 24.0
+rate_limit_per_minute = 60
+
+[ai]
+api_url = "https://api.deepseek.com/v1/chat/completions"
+api_key = "sk-48d185e1ce89487484f35503320130de"
+model = "deepseek-chat"
+timeout = 30
+
+admin_username = "admin"
+admin_password = "Admin@123"

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <link rel ="icon" href="data:,">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BlackPurpleSoker · AI 全能查询中枢 v1.0.0</title>
+  <!-- 修复为相对路径，本地打开也能加载 -->
+  <link rel="stylesheet" href="./style.css"/>
+  <!-- 强制中文字体，解决WSL乱码 -->
+  <style>
+    * {
+      font-family: "Microsoft YaHei", "WenQuanYi Zen Hei", "Noto Sans CJK SC", sans-serif !important;
+    }
+    /* 启动加载动画 */
+    .splash {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: #070414;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 20px;
+      z-index: 9999;
+      color: #a855f7;
+      font-size: 18px;
+    }
+    .logo-icon {
+      font-size: 72px;
+      animation: pulse 1.5s infinite alternate;
+    }
+    @keyframes pulse {
+      from { transform: scale(1); opacity: 0.8; }
+      to { transform: scale(1.15); opacity: 1; }
+    }
+    .version {
+      color: #b4a3d8;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+    .copyright {
+      text-align: center;
+      color: #7a6a9f;
+      font-size: 12px;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 启动动画 -->
+<div class="splash" id="splash">
+  <div class="logo-icon">⚡</div>
+  <div>BlackPurpleSoker 正在启动...</div>
+  <div class="version">v1.0.0 · Rust + AI 高性能智能平台</div>
+</div>
+
+<!-- 星空背景 -->
+<canvas id="stars"></canvas>
+
+<div class="page-container">
+  <!-- 登录卡片 -->
+  <div class="card login-card" id="loginCard">
+    <div class="login-icon">⚡</div>
+    <h2>BlackPurpleSoker</h2>
+    <p class="sub-title">Rust + AI · 黑紫全能智能助手</p >
+    <div class="version" style="margin-bottom: 20px;">v1.0.0</div>
+    <div class="input-group">
+      <input type="text" id="username" placeholder="管理员账号" value="admin"/>
+      </div>
+    <div class="input-group">
+      <input type="password" id="password" placeholder="密码" value="123456"/>
+      </div>
+    <button class="btn-primary glow" onclick="login()">安全登录</button>
+    <div class="copyright">
+      © 2026 BlackPurpleSoker • 保留所有权利
+      </div>
+  </div>
+
+  <!-- 主界面 -->
+  <div class="main-container" id="mainContainer" style="display: none;">
+    <div class="header">
+          <h1>🧠 BlackPurpleSoker · AI 全能查询平台</h1>
+      <p class="desc">高性能 Rust 架构 | DeepSeek AI 引擎 | 黑紫科技风格</p >
+      <div class="version">v1.0.0</div>
+      </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="showPanel('ai')">🤖 万能 AI 查询</button>
+      <button class="tab-btn" onclick="showPanel('kb')">📚 企业知识库</button>
+      <button class="tab-btn" onclick="showPanel('excel')">📊 Excel 数据查询</button>
+      </div>
+
+    <!-- AI 查询面板 -->
+    <div class="panel active" id="aiPanel">
+      <div class="query-box">
+        <textarea id="question" placeholder="⚡ 向 BlackPurpleSoker 询问任何问题..."></textarea>
+        <button class="btn-primary glow" onclick="askAI()">立即查询</button>
+        </div>
+      <div class="result-box">
+        <pre id="aiResult" class="result-content"></pre>
+        </div>
+      </div>
+    <div class="copyright" style="margin-top: 3rem;">
+      BlackPurpleSoker v1.0.0 | Powered by Rust & 通义千问
+      </div>
+  </div>
+</div>
+
+<!-- 修复为相对路径，本地打开也能加载 -->
+<script src="./app.js"></script>
+<script>
+  // 启动动画
+  setTimeout(() => {
+    document.getElementById('splash').style.display = 'none';
+  }, 1800);
+
+  // 星空背景绘制（补全canvas逻辑）
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initStars();
+  }
+
+  function initStars() {
+    stars = [];
+    for (let i = 0; i < 150; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5,
+        speed: Math.random() * 0.5 + 0.1
+      });
+    }
+  }
+
+  function animateStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#a855f7';
+    stars.forEach(star => {
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+      ctx.fill();
+      star.y += star.speed;
+      if (star.y > canvas.height) star.y = 0;
+    });
+    requestAnimationFrame(animateStars);
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+  animateStars();
+</script>
+</body>
+</html>
